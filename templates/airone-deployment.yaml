@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airone
+  labels:
+    app: airone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airone
+  template:
+    metadata:
+      labels:
+        app: airone
+    spec:
+      containers:
+      - name: airone
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: mysecret

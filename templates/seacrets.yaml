@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+stringData:
+  DATABASE_URL: "mysql://airone:password@mysql:3306/airone?charset=utf8mb4"
+  ES_CONFIG_NODES: "elasticsearch:9200"
+  CELERY_BROKER_URL: "amqp://guest:guest@rabbitmq/"

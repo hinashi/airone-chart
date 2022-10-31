@@ -1,0 +1,11 @@
+apiVersion: v2
+name: airone
+description: AirOne is an open source tool built for DCIM(Data Center Infrastructure Management)
+keywords:
+  - airone
+sources:
+  - https://github.com/dmm-com/airone
+type: application
+version: 0.1.0
+appVersion: "3.27.0"
+icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico

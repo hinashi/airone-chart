@@ -1,0 +1,7 @@
+# Default values for airone.
+# This is a YAML-formatted file.
+
+image:
+  repository: ghcr.io/hinashi/airone
+  tag: latest
+  pullPolicy: IfNotPresent
