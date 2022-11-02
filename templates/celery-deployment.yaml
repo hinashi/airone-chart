@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: celery
+  name: "{{ .Release.Name }}-celery"
   labels:
-    app: celery
+    {{- include "airone.labels" . | nindent 4 }}
+    app.kubernetes.io/component: celery
 spec:
   replicas: 1
   selector:
@@ -15,10 +16,20 @@ spec:
         app: celery
     spec:
       containers:
-      - name: celery
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        envFrom:
-        - secretRef:
-            name: mysecret
-        args: ["celery"]
+        - name: celery
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- include "airone.env" . | nindent 12 }}
+          envFrom:
+            - secretRef:
+                name: mysecret
+          command: ["/bin/sh"]
+          args: ["-c", ". /config/dynamicenv.sh && /app/scripts/docker-entrypoint celery"]
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "airone.fullname" . }}

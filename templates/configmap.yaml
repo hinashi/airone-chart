@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "airone.fullname" . }}
+  labels:
+    {{- include "airone.labels" . | nindent 4 }}
+data:
+  dynamicenv.sh: |
+    # Build connection URLs from environment variables.
+    # NOTES:
+    #   This script should be sourced, not run directly.
+    #   All variables are expected to be set by the caller.
+    if [ -z "$AIRONE_MYSQL_URL" ]; then
+      export AIRONE_MYSQL_URL=mysql://${AIRONE_MYSQL_USER}:${AIRONE_MYSQL_PASSWORD}@${AIRONE_MYSQL_HOSTNAME}:3306/${AIRONE_MYSQL_DATABASE}?charset=utf8mb4
+      echo "Using Database: mysql://${AIRONE_MYSQL_USER}:****@${AIRONE_MYSQL_HOSTNAME}:3306/${AIRONE_MYSQL_DATABASE}?charset=utf8mb4"
+    else
+      echo "Using external mysql database"
+    fi
+  install.sh: |
+    #!/usr/bin/env bash
+    # Install
+    echo "Installing AirOne:"
+    . /config/dynamicenv.sh
+    /app/manage.py makemigrations
+    /app/manage.py migrate
+    echo "Tables created"
+    /app/tools/register_user.sh -s admin -p admin
+    /app/tools/register_user.sh auto_complementer -p auto_complementer
+    echo "User created"

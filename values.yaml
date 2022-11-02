@@ -4,4 +4,44 @@
 image:
   repository: ghcr.io/hinashi/airone
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
+
+airone:
+  database: airone
+  sessionCookieSecure: "false"
+
+externalMySQL:
+externalMySQLSecret:
+  {}
+
+mysql:
+  enabled: true
+  serverVersion: 8.0.27
+  credentials:
+    root:
+      user: airone
+      password: password
+      host: "%"
+  serverInstances: 1
+  routerInstances: 1
+  tls:
+    useSelfSigned: true
+
+elasticsearch:
+  enabled: true
+  imageTag: 6.8.16
+  minimumMasterNodes: 1
+  replicas: 1
+  # volumeClaimTemplate:
+  #   storageClassName: efs-sc
+
+rabbitmq:
+  enabled: true
+  image:
+    tag: 3.8.19-debian-10-r30
+  auth:
+    username: airone
+    password: password
+  # persistence:
+  #   storageClass: efs-sc
+  replicaCount: 1

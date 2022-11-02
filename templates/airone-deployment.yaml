@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: airone
+  name: "{{ .Release.Name }}-airone"
   labels:
-    app: airone
+    {{- include "airone.labels" . | nindent 4 }}
+    app.kubernetes.io/component: airone
 spec:
   replicas: 1
   selector:
@@ -15,11 +16,22 @@ spec:
         app: airone
     spec:
       containers:
-      - name: airone
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - containerPort: 8080
-        envFrom:
-          - secretRef:
-              name: mysecret
+        - name: airone
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+          {{- include "airone.env" . | nindent 12 }}
+          envFrom:
+            - secretRef:
+                name: mysecret
+          command: ["/bin/sh"]
+          args: ["-c", ". /config/dynamicenv.sh && /app/scripts/docker-entrypoint gunicorn"]
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "airone.fullname" . }}
