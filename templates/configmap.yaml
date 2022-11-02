@@ -27,3 +27,5 @@ data:
     /app/tools/register_user.sh -s admin -p admin
     /app/tools/register_user.sh auto_complementer -p auto_complementer
     echo "User created"
+    python /app/tools/initialize_es_document.py
+    echo "Documents created"
