@@ -5,6 +5,7 @@ image:
   repository: ghcr.io/hinashi/airone
   tag: latest
   pullPolicy: Always
+imagePullSecrets: []
 
 airone:
   database: airone
