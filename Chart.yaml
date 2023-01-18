@@ -14,11 +14,11 @@ dependencies:
     name: mysql-innodbcluster
     alias: mysql
     repository: https://mysql.github.io/mysql-operator/
-    version: 2.0.7
+    version: 2.0.8
   - condition: elasticsearch.enabled
     name: elasticsearch
     repository: https://helm.elastic.co
-    version: 6.8.16
+    version: 7.17.3
   - condition: rabbitmq.enabled
     name: rabbitmq
     repository: https://charts.bitnami.com/bitnami
