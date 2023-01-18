@@ -3,24 +3,24 @@ entries:
   airone:
   - apiVersion: v2
     appVersion: 3.27.0
-    created: "2022-11-02T16:13:19.128844301+09:00"
+    created: "2023-01-18T18:35:33.314921235+09:00"
     dependencies:
     - alias: mysql
       condition: mysql-innodbcluster.enabled
       name: mysql-innodbcluster
       repository: https://mysql.github.io/mysql-operator/
-      version: 2.0.7
+      version: 2.0.8
     - condition: elasticsearch.enabled
       name: elasticsearch
       repository: https://helm.elastic.co
-      version: 6.8.16
+      version: 7.17.3
     - condition: rabbitmq.enabled
       name: rabbitmq
       repository: https://charts.bitnami.com/bitnami
       version: 11.1.1
     description: AirOne is an open source tool built for DCIM(Data Center Infrastructure
       Management)
-    digest: cdfb211a01ffab455593408e557a7232196cc23135db26f1fea63d70c30cdce0
+    digest: 9b9e4d4d1cacec93de71e5d768c091ed9c3b66ae5671d8f4751cf91e6200cec6
     icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
     keywords:
     - airone
@@ -31,20 +31,66 @@ entries:
     urls:
     - airone-0.1.0.tgz
     version: 0.1.0
-  - apiVersion: v2
-    appVersion: 3.27.0
-    created: "2022-11-02T16:13:19.129417651+09:00"
-    description: AirOne is an open source tool built for DCIM(Data Center Infrastructure
-      Management)
-    digest: 8b3f8d8d0c8b53100b78f62604702b7d33bd6d2f4573441b6a0072f3d47506d9
-    icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
-    keywords:
-    - airone
-    name: airone
+  elasticsearch:
+  - apiVersion: v1
+    appVersion: 7.17.3
+    created: "2023-01-18T18:35:33.317613144+09:00"
+    description: Official Elastic helm chart for Elasticsearch
+    digest: 437a6bd248482b8eb663a1f63bee6c2f9d00c0d77abe90c5a86ca35631969608
+    home: https://github.com/elastic/helm-charts
+    icon: https://helm.elastic.co/icons/elasticsearch.png
+    maintainers:
+    - email: helm-charts@elastic.co
+      name: Elastic
+    name: elasticsearch
     sources:
-    - https://github.com/dmm-com/airone
+    - https://github.com/elastic/elasticsearch
+    urls:
+    - charts/elasticsearch-7.17.3.tgz
+    version: 7.17.3
+  mysql-innodbcluster:
+  - apiVersion: v2
+    appVersion: 8.0.32
+    created: "2023-01-18T18:35:33.319025672+09:00"
+    description: MySQL InnoDB Cluster Helm Chart for deploying MySQL InnoDB Cluster
+      in Kubernetes
+    digest: 701ee1b303ab7f867bab3dc10d76ca71cb73fe66056d1dbb807b7f0a4f1f1db1
+    icon: https://labs.mysql.com/common/themes/sakila/favicon.ico
+    name: mysql-innodbcluster
     type: application
     urls:
-    - airone/airone-0.1.0.tgz
-    version: 0.1.0
-generated: "2022-11-02T16:13:19.119574611+09:00"
+    - charts/mysql-innodbcluster-2.0.8.tgz
+    version: 2.0.8
+  rabbitmq:
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: 3.11.2
+    created: "2023-01-18T18:35:33.323620443+09:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: RabbitMQ is an open source general-purpose message broker that is
+      designed for consistent, highly-available messaging scenarios (both synchronous
+      and asynchronous).
+    digest: 2702d049354d0c321b7200e08c925e727c1568535232309c5b590b2319c1695a
+    home: https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq
+    icon: https://bitnami.com/assets/stacks/rabbitmq/img/rabbitmq-stack-220x234.png
+    keywords:
+    - rabbitmq
+    - message queue
+    - AMQP
+    maintainers:
+    - name: Bitnami
+      url: https://github.com/bitnami/charts
+    name: rabbitmq
+    sources:
+    - https://github.com/bitnami/containers/tree/main/bitnami/rabbitmq
+    - https://www.rabbitmq.com
+    urls:
+    - charts/rabbitmq-11.1.1.tgz
+    version: 11.1.1
+generated: "2023-01-18T18:35:33.306398338+09:00"
