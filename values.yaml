@@ -6,7 +6,7 @@ image:
   tag: latest
   pullPolicy: Always
 imagePullSecrets:
-- harbor-registry-secret
+- name: docker-secret
 
 airone:
   database: airone
