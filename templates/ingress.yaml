@@ -18,7 +18,9 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-    - http:
+  {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -27,4 +29,5 @@ spec:
                 name: airone
                 port:
                   number: 8080
+  {{- end }}
 {{- end }}
