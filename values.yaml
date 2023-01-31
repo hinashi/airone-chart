@@ -8,6 +8,14 @@ image:
 imagePullSecrets:
 - name: docker-secret
 
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  tls:
+    - secretName: airone-example-tls
+      hosts:
+        - airone-example.local
+
 airone:
   database: airone
   sessionCookieSecure: "false"
