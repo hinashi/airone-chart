@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   airone:
   - apiVersion: v2
-    created: "2023-01-31T17:13:42.856416562+09:00"
+    created: "2023-01-31T17:32:27.68662727+09:00"
     dependencies:
     - alias: mysql
       condition: mysql-innodbcluster.enabled
@@ -19,7 +19,7 @@ entries:
       version: 11.1.1
     description: AirOne is an open source tool built for DCIM(Data Center Infrastructure
       Management)
-    digest: 52065e258769bd521421266f736fe4a84b11e88e394360768c4823cdcbf62120
+    digest: 23cd3a809835e6d613c20dabfef7f951dfd95ee4192d2964576a295752b35e2d
     icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
     keywords:
     - airone
@@ -28,12 +28,12 @@ entries:
     - https://github.com/dmm-com/airone
     type: application
     urls:
-    - airone-0.6.0.tgz
-    version: 0.6.0
+    - airone-0.7.0.tgz
+    version: 0.7.0
   elasticsearch:
   - apiVersion: v1
     appVersion: 7.17.3
-    created: "2023-01-31T17:13:42.858631464+09:00"
+    created: "2023-01-31T17:32:27.689292054+09:00"
     description: Official Elastic helm chart for Elasticsearch
     digest: 437a6bd248482b8eb663a1f63bee6c2f9d00c0d77abe90c5a86ca35631969608
     home: https://github.com/elastic/helm-charts
@@ -50,7 +50,7 @@ entries:
   mysql-innodbcluster:
   - apiVersion: v2
     appVersion: 8.0.32
-    created: "2023-01-31T17:13:42.859070451+09:00"
+    created: "2023-01-31T17:32:27.689913526+09:00"
     description: MySQL InnoDB Cluster Helm Chart for deploying MySQL InnoDB Cluster
       in Kubernetes
     digest: 701ee1b303ab7f867bab3dc10d76ca71cb73fe66056d1dbb807b7f0a4f1f1db1
@@ -65,7 +65,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.11.2
-    created: "2023-01-31T17:13:42.863989745+09:00"
+    created: "2023-01-31T17:32:27.695375187+09:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -92,4 +92,4 @@ entries:
     urls:
     - charts/rabbitmq-11.1.1.tgz
     version: 11.1.1
-generated: "2023-01-31T17:13:42.84437093+09:00"
+generated: "2023-01-31T17:32:27.677831557+09:00"
