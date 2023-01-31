@@ -27,7 +27,7 @@ spec:
             - secretRef:
                 name: mysecret
           command: ["/bin/sh"]
-          args: ["-c", ". /config/dynamicenv.sh && /app/scripts/docker-entrypoint gunicorn"]
+          args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint gunicorn"]
           volumeMounts:
             - name: config
               mountPath: /config

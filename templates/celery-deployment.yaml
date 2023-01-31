@@ -25,7 +25,7 @@ spec:
             - secretRef:
                 name: mysecret
           command: ["/bin/sh"]
-          args: ["-c", ". /config/dynamicenv.sh && /app/scripts/docker-entrypoint celery"]
+          args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint celery"]
           volumeMounts:
             - name: config
               mountPath: /config
