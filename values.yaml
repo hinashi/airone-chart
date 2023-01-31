@@ -16,6 +16,11 @@ ingress:
       hosts:
         - airone-example.local
 
+rollout:
+  enabled: false
+  setWeight: 5
+  revisionHistoryLimit: 2
+
 airone:
   database: airone
   sessionCookieSecure: "false"
