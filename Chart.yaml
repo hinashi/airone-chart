@@ -6,7 +6,7 @@ keywords:
 sources:
   - https://github.com/dmm-com/airone
 type: application
-version: 1.1.0
+version: 1.2.0
 icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
 dependencies:
   - condition: mysql-innodbcluster.enabled
