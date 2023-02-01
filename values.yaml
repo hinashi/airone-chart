@@ -13,8 +13,8 @@ ingress:
   ingressClassName: nginx
   tls:
     - secretName: airone-example-tls
-      hosts:
-        - airone-example.local
+      host: airone-example.local
+      previewHost: airone-preview.local
 
 rollout:
   enabled: false

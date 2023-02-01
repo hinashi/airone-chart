@@ -13,16 +13,13 @@ spec:
   tls:
   {{- range .Values.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . | quote }}
-      {{- end }}
+        - {{ .previewHost | quote }}
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
   rules:
   {{- range .Values.ingress.tls }}
-  {{- range .hosts }}
-    - host: {{ . | quote }}
+    - host: {{ .previewHost | quote }}
       http:
         paths:
           - path: /
@@ -32,7 +29,6 @@ spec:
                 name: airone-preview
                 port:
                   number: 8080
-  {{- end }}
   {{- end }}
 ---
 apiVersion: networking.k8s.io/v1
@@ -49,16 +45,13 @@ spec:
   tls:
   {{- range .Values.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . | quote }}
-      {{- end }}
+        - {{ .host | quote }}
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
   rules:
   {{- range .Values.ingress.tls }}
-  {{- range .hosts }}
-    - host: {{ . | quote }}
+    - host: {{ .host | quote }}
       http:
         paths:
           - path: /
@@ -68,6 +61,5 @@ spec:
                 name: airone
                 port:
                   number: 8080
-  {{- end }}
   {{- end }}
 {{- end }}
