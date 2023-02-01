@@ -25,7 +25,7 @@ spec:
           command: [
             "mysqlsh",
             "--sql",
-            "--host=airone-instances",
+            "--host={{ .Release.Name }}-instances",
             "--user=airone",
             "--password=password",
             "--passwords-from-stdin",

@@ -21,11 +21,12 @@ data:
     # Install
     echo "Installing AirOne:"
     . /config/dynamicenv.sh
-    /app/manage.py makemigrations
-    /app/manage.py migrate
+    cd /airone
+    python manage.py makemigrations
+    python manage.py migrate
     echo "Tables created"
-    /app/tools/register_user.sh -s admin -p admin
-    /app/tools/register_user.sh auto_complementer -p auto_complementer
+    ./tools/register_user.sh -s admin -p admin
+    ./tools/register_user.sh auto_complementer -p auto_complementer
     echo "User created"
-    python /app/tools/initialize_es_document.py
+    python ./tools/initialize_es_document.py
     echo "Documents created"
