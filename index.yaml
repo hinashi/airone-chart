@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   airone:
   - apiVersion: v2
-    created: "2023-02-01T14:04:37.35398331+09:00"
+    created: "2023-02-01T14:09:24.048275435+09:00"
     dependencies:
     - alias: mysql
       condition: mysql-innodbcluster.enabled
@@ -19,7 +19,7 @@ entries:
       version: 11.1.1
     description: AirOne is an open source tool built for DCIM(Data Center Infrastructure
       Management)
-    digest: d9e22a146f684e0a51a5cbb315cce191315e4a96d220d187ece53756b95da0c0
+    digest: 9c8d501f64fb75df8f169617eb301bb5124970d6f13eadf31915cd0d5ee9fc8f
     icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
     keywords:
     - airone
@@ -30,39 +30,10 @@ entries:
     urls:
     - airone-1.1.0.tgz
     version: 1.1.0
-  - apiVersion: v2
-    created: "2023-02-01T14:04:37.344052796+09:00"
-    dependencies:
-    - alias: mysql
-      condition: mysql-innodbcluster.enabled
-      name: mysql-innodbcluster
-      repository: https://mysql.github.io/mysql-operator/
-      version: 2.0.8
-    - condition: elasticsearch.enabled
-      name: elasticsearch
-      repository: https://helm.elastic.co
-      version: 7.17.3
-    - condition: rabbitmq.enabled
-      name: rabbitmq
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.1
-    description: AirOne is an open source tool built for DCIM(Data Center Infrastructure
-      Management)
-    digest: 9969b9d63babb272241d28c448830e81a5bd80b281a24343f014fe744bd468f5
-    icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
-    keywords:
-    - airone
-    name: airone
-    sources:
-    - https://github.com/dmm-com/airone
-    type: application
-    urls:
-    - airone-1.0.0.tgz
-    version: 1.0.0
   elasticsearch:
   - apiVersion: v1
     appVersion: 7.17.3
-    created: "2023-02-01T14:04:37.356333912+09:00"
+    created: "2023-02-01T14:09:24.050742615+09:00"
     description: Official Elastic helm chart for Elasticsearch
     digest: 437a6bd248482b8eb663a1f63bee6c2f9d00c0d77abe90c5a86ca35631969608
     home: https://github.com/elastic/helm-charts
@@ -79,7 +50,7 @@ entries:
   mysql-innodbcluster:
   - apiVersion: v2
     appVersion: 8.0.32
-    created: "2023-02-01T14:04:37.356845479+09:00"
+    created: "2023-02-01T14:09:24.051323892+09:00"
     description: MySQL InnoDB Cluster Helm Chart for deploying MySQL InnoDB Cluster
       in Kubernetes
     digest: 701ee1b303ab7f867bab3dc10d76ca71cb73fe66056d1dbb807b7f0a4f1f1db1
@@ -94,7 +65,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.11.2
-    created: "2023-02-01T14:04:37.361668582+09:00"
+    created: "2023-02-01T14:09:24.055784017+09:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -121,4 +92,4 @@ entries:
     urls:
     - charts/rabbitmq-11.1.1.tgz
     version: 11.1.1
-generated: "2023-02-01T14:04:37.335780081+09:00"
+generated: "2023-02-01T14:09:24.038603126+09:00"
