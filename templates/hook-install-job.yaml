@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{{ .Release.Name }}-install"
+  name: "install"
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: install
@@ -14,7 +14,7 @@ spec:
   ttlSecondsAfterFinished: 600
   template:
     metadata:
-      name: "{{ .Release.Name }}"
+      name: "airone"
       labels:
         {{- include "airone.selectorLabels" . | nindent 8 }}
     spec:

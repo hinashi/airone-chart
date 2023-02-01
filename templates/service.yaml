@@ -1,7 +1,26 @@
+{{- if .Values.rollout.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: airone-preview
+  labels:
+    {{- include "airone.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: airone
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+
+---
+{{- end }}
 apiVersion: v1
 kind: Service
 metadata:
   name: airone
+  labels:
+    {{- include "airone.labels" . | nindent 4 }}
 spec:
   selector:
     app: airone
@@ -9,17 +28,3 @@ spec:
   - protocol: TCP
     port: 8080
     targetPort: 8080
-{{- if .Values.rollout.enabled -}}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: airone-canary
-spec:
-  selector:
-    app: airone
-  ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
-{{- end }}

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Release.Name }}-celery"
+  name: "celery"
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: celery

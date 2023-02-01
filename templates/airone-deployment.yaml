@@ -6,22 +6,17 @@ apiVersion: apps/v1
 kind: Deployment
 {{- end }}
 metadata:
-  name: "{{ .Release.Name }}-airone"
+  name: "airone"
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: airone
 spec:
 {{- if .Values.rollout.enabled }}
   strategy:
-    canary:
-      canaryService: airone-canary
-      stableService: airone
-      trafficRouting:
-        nginx:
-          stableIngress: airone
-      steps:
-      - setWeight: {{ .Values.rollout.setWeight }}
-      - pause: {}
+    blueGreen:
+      previewService: airone-preview
+      activeService: airone
+      autoPromotionEnabled: false
   revisionHistoryLimit: {{ .Values.rollout.revisionHistoryLimit }}
 {{- end }}
   replicas: 1
