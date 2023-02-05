@@ -39,6 +39,10 @@ mysql:
   routerInstances: 1
   tls:
     useSelfSigned: true
+  datadirVolumeClaimTemplate:
+    resources:
+      requests:
+        storage: 30Gi
 
 elasticsearch:
   enabled: true
