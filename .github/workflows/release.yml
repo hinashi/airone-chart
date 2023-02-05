@@ -14,3 +14,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           charts_dir: .
+          dependencies: mysql-innodbcluster,https://mysql.github.io/mysql-operator/;elasticsearch,https://helm.elastic.co;rabbitmq,https://charts.bitnami.com/bitnami
