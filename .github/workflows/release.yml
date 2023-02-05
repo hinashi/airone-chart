@@ -10,8 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Publish Helm charts
-        uses: stefanprodan/helm-gh-pages@master
+        uses: tylerauerbeck/helm-gh-pages@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           charts_dir: .
-          dependencies: mysql-innodbcluster,https://mysql.github.io/mysql-operator/;elasticsearch,https://helm.elastic.co;rabbitmq,https://charts.bitnami.com/bitnami
