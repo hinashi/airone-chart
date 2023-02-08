@@ -5,23 +5,30 @@ image:
   repository: ghcr.io/hinashi/airone
   tag: latest
   pullPolicy: Always
+
 imagePullSecrets:
 - name: docker-secret
 
-ingress:
+gunicorn:
+  replicas: 1
+
+celery:
+  replicas: 1
+
+tls:
   enabled: false
-  ingressClassName: nginx
-  tls:
-    - secretName: airone-example-tls
-      host: airone-example.local
-      previewHost: airone-preview.local
+  secretName: airone-example-tls
 
 rollout:
   enabled: false
+  previewHost: airone-preview.local
 
 airone:
   database: airone
   sessionCookieSecure: "false"
+
+ingress:
+  enabled: false
 
 externalMySQL:
 externalMySQLSecret:

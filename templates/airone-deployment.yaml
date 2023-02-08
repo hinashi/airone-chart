@@ -6,10 +6,10 @@ apiVersion: apps/v1
 kind: Deployment
 {{- end }}
 metadata:
-  name: "airone"
+  name: "gunicorn"
   labels:
     {{- include "airone.labels" . | nindent 4 }}
-    app.kubernetes.io/component: airone
+    app.kubernetes.io/component: gunicorn
 spec:
 {{- if .Values.rollout.enabled }}
   strategy:
@@ -19,17 +19,17 @@ spec:
       autoPromotionEnabled: false
   revisionHistoryLimit: {{ .Values.rollout.revisionHistoryLimit }}
 {{- end }}
-  replicas: 1
+  replicas: {{ .Values.gunicorn.replicas }}
   selector:
     matchLabels:
-      app: airone
+      app: gunicorn
   template:
     metadata:
       labels:
-        app: airone
+        app: gunicorn
     spec:
       containers:
-        - name: airone
+        - name: gunicorn
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

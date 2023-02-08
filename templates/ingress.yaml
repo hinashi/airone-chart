@@ -1,27 +1,21 @@
 {{- if .Values.ingress.enabled -}}
+{{- if .Values.rollout.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: airone-preview
   labels:
     {{- include "airone.labels" . | nindent 4 }}
-  annotations:
-    nginx.ingress.kubernetes.io/whitelist-source-range: 1.1.1.1/32
 spec:
-{{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
-{{- end }}
-{{- if .Values.ingress.tls }}
+  ingressClassName: nginx
+{{- if .Values.tls.enabled }}
   tls:
-  {{- range .Values.ingress.tls }}
     - hosts:
-        - {{ .previewHost | quote }}
-      secretName: {{ .secretName }}
-  {{- end }}
+        - {{ .Values.rollout.previewHost | quote }}
+      secretName: {{ .Values.tls.secretName }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.tls }}
-    - host: {{ .previewHost | quote }}
+    - host: {{ .Values.rollout.previewHost | quote }}
       http:
         paths:
           - path: /
@@ -31,31 +25,24 @@ spec:
                 name: airone-preview
                 port:
                   number: 8080
-  {{- end }}
 ---
+{{- end}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: airone
   labels:
     {{- include "airone.labels" . | nindent 4 }}
-  annotations:
-    nginx.ingress.kubernetes.io/whitelist-source-range: 111.108.92.6/32
 spec:
-{{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
-{{- end }}
-{{- if .Values.ingress.tls }}
+  ingressClassName: nginx
+{{- if .Values.tls.enabled }}
   tls:
-  {{- range .Values.ingress.tls }}
     - hosts:
-        - {{ .host | quote }}
-      secretName: {{ .secretName }}
-  {{- end }}
+        - {{ .Values.activeHost | quote }}
+      secretName: {{ .Values.tls.secretName }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.tls }}
-    - host: {{ .host | quote }}
+    - host: {{ .Values.activeHost | quote }}
       http:
         paths:
           - path: /
@@ -65,5 +52,4 @@ spec:
                 name: airone
                 port:
                   number: 8080
-  {{- end }}
 {{- end }}

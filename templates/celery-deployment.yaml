@@ -6,7 +6,7 @@ metadata:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: celery
 spec:
-  replicas: 1
+  replicas: {{ .Values.celery.replicas }}
   selector:
     matchLabels:
       app: celery

@@ -7,14 +7,12 @@ metadata:
     {{- include "airone.labels" . | nindent 4 }}
 spec:
   selector:
-    app: airone
+    app: gunicorn
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 8080
     targetPort: 8080
-  type: LoadBalancer
-  loadBalancerSourceRanges:
-  - "1.1.1.1/32"
 
 ---
 {{- end }}
@@ -26,11 +24,9 @@ metadata:
     {{- include "airone.labels" . | nindent 4 }}
 spec:
   selector:
-    app: airone
+    app: gunicorn
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 8080
     targetPort: 8080
-  type: LoadBalancer
-  loadBalancerSourceRanges:
-  - "111.108.92.6/32"
