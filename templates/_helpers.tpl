@@ -163,34 +163,17 @@ Shared environment block used across each component.
   {{- if .Values.externalMySQL }}
 - name: AIRONE_MYSQL_USER
   value: {{ .Values.externalMySQL.user }}
-{{- if or .Values.externalMySQL.password .Values.airone.existingSecret }}
+    {{- if or .Values.externalMySQL.password .Values.airone.existingSecret }}
 - name: AIRONE_MYSQL_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
       key: mysqlPassword
-{{- end }}
+    {{- end }}
 - name: AIRONE_MYSQL_MASTER_HOST
   value: {{ .Values.externalMySQL.master }}
 - name: AIRONE_MYSQL_SLAVE_HOST
   value: {{ .Values.externalMySQL.slave }}
-  {{- else }}
-- name: AIRONE_MYSQL_URL
-  {{- if .Values.externalMySQLMasterSecret }}
-  valueFrom:
-    secretKeyRef:
-      {{- .Values.externalMySQLMasterSecret | toYaml | nindent 6 }}
-  {{- else }}
-  value: {{ default "" .Values.externalMySQLMaster | quote }}
-  {{- end }}
-- name: AIRONE_MYSQL_SLAVE_URL
-  {{- if .Values.externalMySQLSlaveSecret }}
-  valueFrom:
-    secretKeyRef:
-      {{- .Values.externalMySQLSlaveSecret | toYaml | nindent 6 }}
-  {{- else }}
-  value: {{ default "" .Values.externalMySQLSlave | quote }}
-  {{- end }}
   {{- end }}
 {{- else }}
 - name: AIRONE_MYSQL_USER
@@ -211,24 +194,15 @@ Shared environment block used across each component.
   {{- if .Values.externalElasticsearch }}
 - name: AIRONE_ELASTICSEARCH_USER
   value: {{ .Values.externalElasticsearch.user }}
-{{- if or .Values.externalElasticsearch.password .Values.airone.existingSecret }}
+    {{- if or .Values.externalElasticsearch.password .Values.airone.existingSecret }}
 - name: AIRONE_ELASTICSEARCHL_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
       key: elasticsearchPassword
-{{- end }}
+    {{- end }}
 - name: AIRONE_ELASTICSEARCH_HOST
   value: {{ .Values.externalElasticsearch.host }}
-  {{- else }}
-- name: AIRONE_ELASTICSEARCH_URL
-  {{- if .Values.externalElasticsearchSecret }}
-  valueFrom:
-    secretKeyRef:
-      {{- .Values.externalElasticsearchSecret | toYaml | nindent 6 }}
-  {{- else }}
-  value: {{ default "" .Values.externalElasticsearch | quote }}
-  {{- end }}
   {{- end }}
 {{- else }}
 - name: AIRONE_ELASTICSEARCH_USER
@@ -251,24 +225,15 @@ Shared environment block used across each component.
   {{- if .Values.externalRabbitmq }}
 - name: AIRONE_RABBITMQ_USER
   value: {{ .Values.externalRabbitmq.user }}
-{{- if or .Values.externalRabbitmq.password .Values.airone.existingSecret }}
+    {{- if or .Values.externalRabbitmq.password .Values.airone.existingSecret }}
 - name: AIRONE_RABBITMQ_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
       key: rabbitmqPassword
-{{- end }}
+    {{- end }}
 - name: AIRONE_RABBITMQ_HOST
   value: {{ .Values.externalRabbitmq.host }}
-  {{- else }}
-- name: AIRONE_RABBITMQ_URL
-  {{- if .Values.externalRabbitmqSecret }}
-  valueFrom:
-    secretKeyRef:
-      {{- .Values.externalRabbitmqSecret | toYaml | nindent 6 }}
-  {{- else }}
-  value: {{ default "" .Values.externalRabbitmq | quote }}
-  {{- end }}
   {{- end }}
 {{- else }}
 - name: AIRONE_RABBITMQ_USER

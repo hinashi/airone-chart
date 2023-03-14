@@ -32,7 +32,7 @@ airone:
   existingSecret: ""
   database: airone
   index: airone
-  secretKey: ""
+  secretKey: changeme
   debug: ""
   fileStorePath: ""
   title: ""
@@ -71,12 +71,12 @@ airone:
     enable: false
     tag: ""
 
-externalMySQLMaster:
-externalMySQLSlave:
-externalMySQLMasterSecret:
-  {}
-externalMySQLSlaveSecret:
-  {}
+externalMySQL:
+  user: ""
+  password: ""
+  master: ""
+  slave: ""
+  database: ""
 
 mysql:
   enabled: true
@@ -96,8 +96,10 @@ mysql:
         storage: 30Gi
 
 externalElasticsearch:
-externalElasticsearchSecret:
-  {}
+  user: ""
+  password: ""
+  host: ""
+  index: ""
 
 elasticsearch:
   enabled: true
@@ -114,8 +116,9 @@ elasticsearch:
   #   storageClassName: efs-sc
 
 externalRabbitmq:
-externalRabbitmqSecret:
-  {}
+  user: ""
+  password: ""
+  host: ""
 
 rabbitmq:
   enabled: true
