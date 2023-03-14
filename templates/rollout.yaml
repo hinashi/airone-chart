@@ -1,0 +1,40 @@
+{{- if .Values.rollout.enabled -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: gunicorn
+  labels:
+    {{- include "airone.labels" . | nindent 4 }}
+    app.kubernetes.io/component: gunicorn
+spec:
+  strategy:
+    blueGreen:
+      previewService: airone-preview
+      activeService: airone
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 1800
+  revisionHistoryLimit: 1
+  workloadRef: 
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gunicorn
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: celery
+  labels:
+    {{- include "airone.labels" . | nindent 4 }}
+    app.kubernetes.io/component: celery
+spec:
+  strategy:
+    blueGreen:
+      activeService: celery
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 1800
+  revisionHistoryLimit: 1
+  workloadRef: 
+    apiVersion: apps/v1
+    kind: Deployment
+    name: celery
+{{- end }}

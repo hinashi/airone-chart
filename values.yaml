@@ -15,6 +15,8 @@ gunicorn:
 celery:
   replicas: 1
 
+activeHost: airone.local
+
 tls:
   enabled: false
   secretName: airone-example-tls
@@ -23,15 +25,57 @@ rollout:
   enabled: false
   previewHost: airone-preview.local
 
-airone:
-  database: airone
-  sessionCookieSecure: "false"
-
 ingress:
   enabled: false
 
-externalMySQL:
-externalMySQLSecret:
+airone:
+  existingSecret: ""
+  database: airone
+  index: airone
+  secretKey: ""
+  debug: ""
+  fileStorePath: ""
+  title: ""
+  subtitle: ""
+  noteDesc: ""
+  noteLink: ""
+  ssoDesc: ""
+  extensions: []
+  ldap:
+    enabled: false
+    server: ""
+    filter: ""
+  sso:
+    enabled: false
+    url: ""
+    privateKey: ""
+    publicCert: ""
+    displayName: ""
+    contactName: ""
+    contactEmail: ""
+    provider: ""
+    entityId: ""
+    loginUrl: ""
+    x509Cert: ""
+    userId: ""
+  email:
+    enabled: false
+    host: ""
+    port: ""
+    user: ""
+    password: ""
+    useTls: ""
+    from: ""
+    to: ""
+  datadog:
+    enable: false
+    tag: ""
+
+externalMySQLMaster:
+externalMySQLSlave:
+externalMySQLMasterSecret:
+  {}
+externalMySQLSlaveSecret:
   {}
 
 mysql:
@@ -51,13 +95,27 @@ mysql:
       requests:
         storage: 30Gi
 
+externalElasticsearch:
+externalElasticsearchSecret:
+  {}
+
 elasticsearch:
   enabled: true
   imageTag: 7.17.3
+  secret:
+    enabled: true
+    password: password
   minimumMasterNodes: 1
   replicas: 1
+  # esConfig:
+  #   elasticsearch.yml: |
+  #     xpack.security.enabled: true
   # volumeClaimTemplate:
   #   storageClassName: efs-sc
+
+externalRabbitmq:
+externalRabbitmqSecret:
+  {}
 
 rabbitmq:
   enabled: true
@@ -66,6 +124,6 @@ rabbitmq:
   auth:
     username: airone
     password: password
+  replicaCount: 1
   # persistence:
   #   storageClass: efs-sc
-  replicaCount: 1

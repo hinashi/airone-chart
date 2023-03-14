@@ -13,7 +13,18 @@ spec:
     protocol: TCP
     port: 8080
     targetPort: 8080
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: celery
+  labels:
+    {{- include "airone.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: celery
+  ports: []
+  clusterIP: None
 ---
 {{- end }}
 apiVersion: v1

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "celery"
+  name: celery
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: celery
@@ -21,9 +21,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           {{- include "airone.env" . | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: mysecret
           command: ["/bin/sh"]
           args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint.sh celery"]
           volumeMounts:
@@ -32,7 +29,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "airone.fullname" . }}
+            name: airone-config
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

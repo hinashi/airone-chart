@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "install"
+  name: install
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: install
@@ -14,7 +14,7 @@ spec:
   ttlSecondsAfterFinished: 600
   template:
     metadata:
-      name: "airone"
+      name: install
       labels:
         {{- include "airone.selectorLabels" . | nindent 8 }}
     spec:
@@ -22,24 +22,18 @@ spec:
       initContainers:
         - name: init-createdb
           image: mysql/mysql-operator
-          command: [
-            "mysqlsh",
-            "--sql",
-            "--host={{ .Release.Name }}-instances",
-            "--user=airone",
-            "--password=password",
-            "--passwords-from-stdin",
-            "--execute=CREATE DATABASE IF NOT EXISTS airone"
-          ]
+          env:
+          {{- include "airone.env" . | nindent 12 }}
+          command: ["/bin/bash", "/config/create_db.sh"]
+          volumeMounts:
+            - name: config
+              mountPath: /config
       containers:
         - name: airone-install
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           {{- include "airone.env" . | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: mysecret
           command: ["/bin/bash", "/config/install.sh"]
           volumeMounts:
             - name: config
@@ -47,7 +41,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "airone.fullname" . }}
+            name: airone-config
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
