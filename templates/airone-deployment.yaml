@@ -1,11 +1,25 @@
+{{- if .Values.rollout.enabled -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+{{- else -}}
 apiVersion: apps/v1
 kind: Deployment
+{{- end }}
 metadata:
   name: gunicorn
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: gunicorn
 spec:
+{{- if .Values.rollout.enabled }}
+  strategy:
+    blueGreen:
+      previewService: airone-preview
+      activeService: airone
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 1800
+  revisionHistoryLimit: 1
+{{- end }}
   replicas: {{ .Values.gunicorn.replicas }}
   selector:
     matchLabels:
@@ -23,7 +37,7 @@ spec:
             - containerPort: 8080
           env:
           {{- include "airone.env" . | nindent 12 }}
-          command: ["/bin/sh"]
+          command: ["/bin/bash"]
           args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint.sh gunicorn"]
           volumeMounts:
             - name: config

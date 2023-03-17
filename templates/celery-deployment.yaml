@@ -1,11 +1,24 @@
+{{- if .Values.rollout.enabled -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+{{- else -}}
 apiVersion: apps/v1
 kind: Deployment
+{{- end }}
 metadata:
   name: celery
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: celery
 spec:
+{{- if .Values.rollout.enabled }}
+  strategy:
+    blueGreen:
+      activeService: celery
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 1800
+  revisionHistoryLimit: 1
+{{- end }}
   replicas: {{ .Values.celery.replicas }}
   selector:
     matchLabels:
@@ -21,7 +34,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           {{- include "airone.env" . | nindent 12 }}
-          command: ["/bin/sh"]
+          command: ["/bin/bash"]
           args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint.sh celery"]
           volumeMounts:
             - name: config
