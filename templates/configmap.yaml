@@ -27,17 +27,6 @@ data:
       --password=${AIRONE_MYSQL_PASSWORD} \
       --passwords-from-stdin \
       --execute="CREATE DATABASE IF NOT EXISTS ${AIRONE_MYSQL_DATABASE}"
-  install.sh: |
+  create_vhost.sh: |
     #!/usr/bin/env bash
-    # Install
-    echo "Installing AirOne:"
-    . /config/dynamicenv.sh
-    cd /airone
-    python manage.py makemigrations
-    python manage.py migrate
-    echo "Tables created"
-    ./tools/register_user.sh -s admin -p admin
-    ./tools/register_user.sh auto_complementer -p auto_complementer
-    echo "User created"
-    python ./tools/initialize_es_document.py
-    echo "Documents created"
+    curl -X PUT -u ${AIRONE_RABBITMQ_USER}:${AIRONE_RABBITMQ_PASSWORD} -H "Content-Type: application/json" http://${AIRONE_RABBITMQ_HOST}:15672/api/vhosts/${AIRONE_TAG}

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: install
+  name: airone-install
   labels:
     {{- include "airone.labels" . | nindent 4 }}
     app.kubernetes.io/component: install
@@ -9,22 +9,30 @@ metadata:
     # This is what defines this resource as a hook.
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "-5"
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   ttlSecondsAfterFinished: 600
   template:
     metadata:
-      name: install
+      name: airone-install
       labels:
         {{- include "airone.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: Never
       initContainers:
-        - name: init-createdb
+        - name: create-db
           image: mysql/mysql-operator
           env:
           {{- include "airone.env" . | nindent 12 }}
           command: ["/bin/bash", "/config/create_db.sh"]
+          volumeMounts:
+            - name: config
+              mountPath: /config
+        - name: create-vhost
+          image: docker.io/bitnami/rabbitmq
+          env:
+          {{- include "airone.env" . | nindent 12 }}
+          command: ["/bin/bash", "/config/create_vhost.sh"]
           volumeMounts:
             - name: config
               mountPath: /config
@@ -34,7 +42,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           {{- include "airone.env" . | nindent 12 }}
-          command: ["/bin/bash", "/config/install.sh"]
+          command: ["/bin/bash"]
+          args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint.sh install"]
           volumeMounts:
             - name: config
               mountPath: /config
