@@ -9,6 +9,8 @@ image:
 imagePullSecrets:
 - name: docker-secret
 
+storageClass: ""
+
 gunicorn:
   replicas: 1
   workers: 1
