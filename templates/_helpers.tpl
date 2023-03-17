@@ -40,8 +40,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Shared environment block used across each component.
 */}}
 {{- define "airone.env" -}}
+- name: WSGI_WORKERS
+  value: {{ .Values.gunicorn.workers | quote }}
+- name: WSGI_TIMEOUT
+  value: {{ .Values.gunicorn.timeout | quote }}
+- name: CELERY_CONCURRENCY
+  value: {{ .Values.celery.concurrency | quote }}
 - name: AIRONE_TAG
-  value: {{ .Values.image.tag }}
+  value: {{ .Values.image.tag | quote }}
 {{- if or .Values.airone.secretKey .Values.airone.existingSecret }}
 - name: AIRONE_SECRET_KEY
   valueFrom:

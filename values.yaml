@@ -11,9 +11,12 @@ imagePullSecrets:
 
 gunicorn:
   replicas: 1
+  workers: 1
+  timeout: 600
 
 celery:
   replicas: 1
+  concurrency: 20
 
 activeHost: airone.local
 
