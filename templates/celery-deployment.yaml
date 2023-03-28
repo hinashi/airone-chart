@@ -27,6 +27,9 @@ spec:
     metadata:
       labels:
         app: celery
+        {{- if .Values.airone.datadog.enabled }}
+        admission.datadoghq.com/enabled: "true"
+        {{- end }}
     spec:
       containers:
         - name: celery

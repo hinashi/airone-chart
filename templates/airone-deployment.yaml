@@ -28,6 +28,9 @@ spec:
     metadata:
       labels:
         app: gunicorn
+        {{- if .Values.airone.datadog.enabled }}
+        admission.datadoghq.com/enabled: "true"
+        {{- end }}
     spec:
       containers:
         - name: gunicorn
