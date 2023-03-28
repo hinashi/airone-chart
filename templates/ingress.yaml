@@ -6,6 +6,10 @@ metadata:
   name: airone-preview
   labels:
     {{- include "airone.labels" . | nindent 4 }}
+  {{- if .Values.certManager.enabled }}
+  annotations:
+    cert-manager.io/issuer: {{ .Values.certManager.name | quote }}
+  {{- end }}
 spec:
   ingressClassName: nginx
 {{- if .Values.tls.enabled }}
@@ -33,6 +37,10 @@ metadata:
   name: airone
   labels:
     {{- include "airone.labels" . | nindent 4 }}
+  {{- if .Values.certManager.enabled }}
+  annotations:
+    cert-manager.io/issuer: {{ .Values.certManager.name | quote }}
+  {{- end }}
 spec:
   ingressClassName: nginx
 {{- if .Values.tls.enabled }}
