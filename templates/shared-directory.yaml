@@ -4,7 +4,7 @@ metadata:
   name: shared-directory
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeMode: Filesystem
   resources:
     requests:

@@ -16,7 +16,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.rollout.previewHost | quote }}
-      secretName: {{ .Values.tls.secretName }}
+      secretName: {{ .Values.rollout.previewSecretName }}
 {{- end }}
   rules:
     - host: {{ .Values.rollout.previewHost | quote }}
