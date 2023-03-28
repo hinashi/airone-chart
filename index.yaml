@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   airone:
   - apiVersion: v2
-    created: "2023-03-28T01:09:36.182195549Z"
+    created: "2023-03-28T08:03:59.32407739Z"
     dependencies:
     - alias: mysql
       condition: mysql.enabled
@@ -19,7 +19,7 @@ entries:
       version: 11.1.1
     description: AirOne is an open source tool built for DCIM(Data Center Infrastructure
       Management)
-    digest: 3ceb24ff8785af581c7cc6b8a574be614cdc39f0d24953e3de185a60173c4d13
+    digest: fd8e54f680cde4456d98d929374ae320c5362fc194a9f9c453c04c12ef5a3362
     icon: https://raw.githubusercontent.com/dmm-com/airone/master/static/favicon.ico
     keywords:
     - airone
@@ -208,4 +208,4 @@ entries:
     urls:
     - charts/rabbitmq-11.1.1.tgz
     version: 11.1.1
-generated: "2023-03-28T01:09:36.173012949Z"
+generated: "2023-03-28T08:03:59.316070262Z"
