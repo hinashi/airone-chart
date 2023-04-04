@@ -45,15 +45,15 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: data
-              mountPath: /tmp/airone_app
+            # - name: data
+            #   mountPath: /tmp/airone_app
       volumes:
         - name: config
           configMap:
             name: airone-config
-        - name: data
-          persistentVolumeClaim:
-            claimName: shared-directory
+        # - name: data
+        #   persistentVolumeClaim:
+        #     claimName: shared-directory
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

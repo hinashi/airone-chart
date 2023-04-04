@@ -146,7 +146,7 @@ Shared environment block used across each component.
 - name: AIRONE_EMAIL_HOST_USER
   value: {{ default  .Values.airone.email.user | quote }}
 {{- if or .Values.airone.email.password .Values.airone.existingSecret }}
-- name: AIRONE_EMAIL_PASSWORD
+- name: AIRONE_EMAIL_HOST_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
@@ -201,7 +201,7 @@ Shared environment block used across each component.
 - name: AIRONE_ELASTICSEARCH_USER
   value: {{ .Values.externalElasticsearch.user }}
     {{- if or .Values.externalElasticsearch.password .Values.airone.existingSecret }}
-- name: AIRONE_ELASTICSEARCHL_PASSWORD
+- name: AIRONE_ELASTICSEARCH_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
