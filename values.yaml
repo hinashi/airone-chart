@@ -63,15 +63,10 @@ airone:
     x509Cert: ""
     userId: ""
   storage:
-    s3:
-      enabled: false
-      bucket: ""
-      accessKey: ""
-      secretAccessKey: ""
-    gs:
-      enabled: false
-      bucket: ""
-      credential: ""
+    enabled: false
+    bucket: ""
+    accessKey: ""
+    secretAccessKey: ""
   email:
     enabled: false
     host: ""

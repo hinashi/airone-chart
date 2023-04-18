@@ -136,37 +136,24 @@ Shared environment block used across each component.
 - name: AIRONE_FILE_STORE_PATH
   value: {{ default  .Values.airone.fileStorePath | quote }}
 {{- end }}
-{{- if .Values.airone.storage.s3.enabled }}
-- name: AIRONE_STORAGE_S3_ENABLE
-  value: {{ default  .Values.airone.storage.s3.enabled | quote }}
-- name: AIRONE_STORAGE_S3_BUCKET_NAME
-  value: {{ default  .Values.airone.storage.s3.bucket | quote }}
-{{- if or .Values.airone.storage.s3.accessKey .Values.airone.existingSecret }}
-- name: AIRONE_STORAGE_S3_ACCESS_KEY
+{{- if .Values.airone.storage.enabled }}
+- name: AIRONE_STORAGE_ENABLE
+  value: {{ default  .Values.airone.storage.enabled | quote }}
+- name: AIRONE_STORAGE_BUCKET_NAME
+  value: {{ default  .Values.airone.storage.bucket | quote }}
+{{- if or .Values.airone.storage.accessKey .Values.airone.existingSecret }}
+- name: AIRONE_STORAGE_ACCESS_KEY
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
-      key: storageS3AccessKey
+      key: storageAccessKey
 {{- end }}
-{{- if or .Values.airone.storage.s3.secretAccessKey .Values.airone.existingSecret }}
-- name: AIRONE_STORAGE_S3_SECRET_ACCESS_KEY
+{{- if or .Values.airone.storage.secretAccessKey .Values.airone.existingSecret }}
+- name: AIRONE_STORAGE_SECRET_ACCESS_KEY
   valueFrom:
     secretKeyRef:
       name: {{ include "airone.secretName" . }}
-      key: storageS3SecretAccessKey
-{{- end }}
-{{- end }}
-{{- if .Values.airone.storage.gs.enabled }}
-- name: AIRONE_STORAGE_GS_ENABLE
-  value: {{ default  .Values.airone.storage.gs.enabled | quote }}
-- name: AIRONE_STORAGE_GS_BUCKET_NAME
-  value: {{ default  .Values.airone.storage.gs.bucket | quote }}
-{{- if or .Values.airone.storage.gs.credential .Values.airone.existingSecret }}
-- name: GOOGLE_APPLICATION_CREDENTIALS
-  valueFrom:
-    secretKeyRef:
-      name: {{ include "airone.secretName" . }}
-      key: storageGsCredential
+      key: storageSecretAccessKey
 {{- end }}
 {{- end }}
 {{- if .Values.airone.email.enabled }}
