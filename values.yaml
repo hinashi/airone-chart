@@ -62,6 +62,16 @@ airone:
     loginUrl: ""
     x509Cert: ""
     userId: ""
+  storage:
+    s3:
+      enabled: false
+      bucket: ""
+      accessKey: ""
+      secretAccessKey: ""
+    gs:
+      enabled: false
+      bucket: ""
+      credential: ""
   email:
     enabled: false
     host: ""

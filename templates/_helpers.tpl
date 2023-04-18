@@ -59,10 +59,6 @@ Shared environment block used across each component.
 - name: AIRONE_DEBUG
   value: {{ default  .Values.airone.debug | quote }}
 {{- end }}
-{{- if .Values.airone.fileStorePath }}
-- name: AIRONE_FILE_STORE_PATH
-  value: {{ default  .Values.airone.fileStorePath | quote }}
-{{- end }}
 {{- if .Values.airone.title }}
 - name: AIRONE_TITLE
   value: {{ default  .Values.airone.title | quote }}
@@ -135,6 +131,43 @@ Shared environment block used across each component.
 {{- end }}
 - name: AIRONE_SSO_USER_ID
   value: {{ default  .Values.airone.sso.userId | quote }}
+{{- end }}
+{{- if .Values.airone.fileStorePath }}
+- name: AIRONE_FILE_STORE_PATH
+  value: {{ default  .Values.airone.fileStorePath | quote }}
+{{- end }}
+{{- if .Values.airone.storage.s3.enabled }}
+- name: AIRONE_STORAGE_S3_ENABLE
+  value: {{ default  .Values.airone.storage.s3.enabled | quote }}
+- name: AIRONE_STORAGE_S3_BUCKET_NAME
+  value: {{ default  .Values.airone.storage.s3.bucket | quote }}
+{{- if or .Values.airone.storage.s3.accessKey .Values.airone.existingSecret }}
+- name: AIRONE_STORAGE_S3_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "airone.secretName" . }}
+      key: storageS3AccessKey
+{{- end }}
+{{- if or .Values.airone.storage.s3.secretAccessKey .Values.airone.existingSecret }}
+- name: AIRONE_STORAGE_S3_SECRET_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "airone.secretName" . }}
+      key: storageS3SecretAccessKey
+{{- end }}
+{{- end }}
+{{- if .Values.airone.storage.gs.enabled }}
+- name: AIRONE_STORAGE_GS_ENABLE
+  value: {{ default  .Values.airone.storage.gs.enabled | quote }}
+- name: AIRONE_STORAGE_GS_BUCKET_NAME
+  value: {{ default  .Values.airone.storage.gs.bucket | quote }}
+{{- if or .Values.airone.storage.gs.credential .Values.airone.existingSecret }}
+- name: GOOGLE_APPLICATION_CREDENTIALS
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "airone.secretName" . }}
+      key: storageGsCredential
+{{- end }}
 {{- end }}
 {{- if .Values.airone.email.enabled }}
 - name: AIRONE_EMAIL_ENABLE
