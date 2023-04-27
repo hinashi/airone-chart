@@ -40,6 +40,11 @@ spec:
             - containerPort: 8080
           env:
           {{- include "airone.env" . | nindent 12 }}
+          {{- if .Values.addEnvVarSecret }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.addEnvVarSecret }}
+          {{- end }}
           command: ["/bin/bash"]
           args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint.sh gunicorn"]
           volumeMounts:

@@ -32,6 +32,8 @@ rollout:
 ingress:
   enabled: false
 
+addEnvVarSecret: ""
+
 airone:
   existingSecret: ""
   database: airone
