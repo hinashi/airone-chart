@@ -29,14 +29,6 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-        - name: create-vhost
-          image: docker.io/bitnami/rabbitmq
-          env:
-          {{- include "airone.env" . | nindent 12 }}
-          command: ["/bin/bash", "/config/create_vhost.sh"]
-          volumeMounts:
-            - name: config
-              mountPath: /config
       containers:
         - name: airone-install
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -44,7 +36,7 @@ spec:
           env:
           {{- include "airone.env" . | nindent 12 }}
           command: ["/bin/bash"]
-          args: ["-c", ". /config/dynamicenv.sh && /docker-entrypoint.sh install"]
+          args: ["-c", ". /config/dynamicenv.sh && . /config/create_vhost.sh && /docker-entrypoint.sh install"]
           volumeMounts:
             - name: config
               mountPath: /config
