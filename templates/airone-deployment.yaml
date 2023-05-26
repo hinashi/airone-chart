@@ -28,9 +28,13 @@ spec:
     metadata:
       labels:
         app: gunicorn
-        {{- if .Values.airone.datadog.enabled }}
-        admission.datadoghq.com/enabled: "true"
+        {{- if .Values.podLabels }}
+        {{- tpl (toYaml .Values.podLabels) $ | nindent 8 }}
         {{- end }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+      {{ toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
     spec:
       containers:
         - name: gunicorn

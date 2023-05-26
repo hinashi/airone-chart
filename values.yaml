@@ -6,6 +6,9 @@ image:
 imagePullSecrets:
 - name: docker-secret
 
+podLabels: {}
+podAnnotations: {}
+
 storageClass: ""
 
 install: false
