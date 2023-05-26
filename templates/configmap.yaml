@@ -11,15 +11,9 @@ data:
     #   This script should be sourced, not run directly.
     #   All variables are expected to be set by the caller.
     export AIRONE_MYSQL_MASTER_URL=mysql://${AIRONE_MYSQL_USER}:${AIRONE_MYSQL_PASSWORD}@${AIRONE_MYSQL_MASTER_HOST}/${AIRONE_MYSQL_DATABASE}?charset=utf8mb4
-    echo "Using MySQL master: mysql://${AIRONE_MYSQL_USER}:****@${AIRONE_MYSQL_MASTER_HOST}/${AIRONE_MYSQL_DATABASE}?charset=utf8mb4"
     export AIRONE_MYSQL_SLAVE_URL=mysql://${AIRONE_MYSQL_USER}:${AIRONE_MYSQL_PASSWORD}@${AIRONE_MYSQL_SLAVE_HOST}/${AIRONE_MYSQL_DATABASE}?charset=utf8mb4
-    echo "Using MySQL slave: mysql://${AIRONE_MYSQL_USER}:****@${AIRONE_MYSQL_SLAVE_HOST}/${AIRONE_MYSQL_DATABASE}?charset=utf8mb4"
-
     export AIRONE_ELASTICSEARCH_URL=elasticsearch://${AIRONE_ELASTICSEARCH_USER}:${AIRONE_ELASTICSEARCH_PASSWORD}@${AIRONE_ELASTICSEARCH_HOST}/${AIRONE_ELASTICSEARCH_INDEX}
-    echo "Using Elasticsearch: elasticsearch://${AIRONE_ELASTICSEARCH_USER}:****@${AIRONE_ELASTICSEARCH_HOST}/${AIRONE_ELASTICSEARCH_INDEX}"
-
     export AIRONE_RABBITMQ_URL=amqp://${AIRONE_RABBITMQ_USER}:${AIRONE_RABBITMQ_PASSWORD}@${AIRONE_RABBITMQ_HOST}/${AIRONE_TAG}
-    echo "Using RabbitMQ: amqp://${AIRONE_RABBITMQ_USER}:****@${AIRONE_RABBITMQ_HOST}/${AIRONE_TAG}"
   create_db.sh: |
     #!/usr/bin/env bash
     mysqlsh --sql \
