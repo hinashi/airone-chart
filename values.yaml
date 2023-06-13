@@ -38,8 +38,10 @@ ingress:
 cronjob:
   enabled: false
   schedule: "*/1 * * * *"
-  command: ["/bin/bash"]
-  args: ["-c", ". /config/dynamicenv.sh"]
+  command: |-
+    ["/bin/bash"]
+  args: |-
+    ["-c", ". /config/dynamicenv.sh"]
 
 addEnvVarSecret: ""
 
