@@ -4,7 +4,7 @@ image:
   pullPolicy: Always
 
 imagePullSecrets:
-- name: docker-secret
+  - name: docker-secret
 
 podLabels: {}
 podAnnotations: {}
@@ -34,6 +34,12 @@ rollout:
 
 ingress:
   enabled: false
+
+cronjob:
+  enabled: false
+  schedule: "*/1 * * * *"
+  command: ["/bin/bash"]
+  args: ["-c", ". /config/dynamicenv.sh"]
 
 addEnvVarSecret: ""
 
